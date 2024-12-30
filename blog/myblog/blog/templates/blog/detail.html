@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ detail.title }}{% endblock %}
+{% block content %}
+<h1>{{ detail.title }}</h1>
+<p>{{ detail.content }}</p>
+{% if user.is_authenticated %}
+{% if user == detail.author %}
+<a href="{% url 'edit' detail.pk %}">Edit</a> ||
+<a href="{% url 'delete' detail.pk %}">Delete</a>
+{% endif %}
+{% endif %}
+{% endblock content %}

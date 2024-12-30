@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h3>User: {{ request.user.get_full_name|capfirst }}</h3>
+{% if not user.is_authenticated %}
+<h2>You're not signed in!</h2>
+<a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Sign Up</a>
+<br>
+{% else %}
+<p>Create a new post: <a href="{% url 'create' %}">Create</a></p>
+<p><a href="{% url 'logout' %}">Logout</a></p>
+<p><a href="{% url 'edit_profile' %}">Edit profile</a></p>
+{% endif %}
+{% if blog_home %}
+<br>
+
+{% for post in blog_home %}
+
+<b><a href="{% url 'detail' post.pk %}">{{ post.title }}</a></b> : <p>{{ post.content }}</p>
+
+{% endfor %}
+{% else %}
+<h2>Nothing to show :-)</h2>
+{% endif %}
+{% endblock content %}
